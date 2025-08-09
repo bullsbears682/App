@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description: "Transform your content creation with AI. Generate blog posts, social media content, marketing copy, and more in minutes, not hours.",
   keywords: ["AI content generation", "content creation", "blog writing", "social media content", "marketing copy"],
   authors: [{ name: "ContentAI Pro" }],
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   openGraph: {
     title: "ContentAI Pro - AI-Powered Content Generation",
     description: "Transform your content creation with AI. Generate blog posts, social media content, marketing copy, and more in minutes, not hours.",
