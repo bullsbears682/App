@@ -55,46 +55,42 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'GT America', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   }
 }
 
-/* Custom styles for Homerun website */
 @layer components {
-  .homerun-gradient {
-    background: linear-gradient(135deg, #4F75FE 0%, #00C275 100%);
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }
   
-  .homerun-pink {
-    background-color: #F0A8FA;
+  .gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
-  .homerun-charcoal {
-    color: #2D2323;
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
-  .homerun-text {
-    color: #4A3E3E;
+  .shadow-glow {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
   }
   
-  .homerun-bg-light {
-    background-color: #FAFAF7;
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
   
-  .homerun-bg-warm {
-    background-color: #F5F1EC;
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
   }
   
-  .marquee {
-    animation: marquee 50s linear infinite;
-  }
-  
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
