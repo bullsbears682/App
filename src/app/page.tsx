@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 import { 
   Sparkles, 
   Zap, 
@@ -17,29 +18,53 @@ import {
 } from "lucide-react"
 
 export default function Home() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-purple-600">
               <Sparkles className="h-4 w-4 text-white" />
             </div>
             <span className="text-xl font-bold gradient-text">ContentAI Pro</span>
-          </div>
+          </Link>
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-sm font-medium text-gray-600 hover:text-gray-900">Features</a>
-            <a href="#pricing" className="text-sm font-medium text-gray-600 hover:text-gray-900">Pricing</a>
-            <a href="#testimonials" className="text-sm font-medium text-gray-600 hover:text-gray-900">Reviews</a>
+            <button 
+              onClick={() => scrollToSection('features')} 
+              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
+            >
+              Features
+            </button>
+            <button 
+              onClick={() => scrollToSection('pricing')} 
+              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
+            >
+              Pricing
+            </button>
+            <button 
+              onClick={() => scrollToSection('testimonials')} 
+              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
+            >
+              Reviews
+            </button>
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm">
               Sign In
             </Button>
-            <Button variant="gradient" size="sm">
-              Start Free Trial
-            </Button>
+            <Link href="/generate">
+              <Button variant="gradient" size="sm" className="hover:scale-105 transition-transform">
+                Start Free Trial
+              </Button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -62,11 +87,13 @@ export default function Home() {
               marketing copy, and more in minutes, not hours.
             </p>
             <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-              <Button variant="gradient" size="xl" className="w-full sm:w-auto">
-                Start Creating Now
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="xl" className="w-full sm:w-auto">
+              <Link href="/generate">
+                <Button variant="gradient" size="xl" className="w-full sm:w-auto hover:scale-105 transition-transform">
+                  Start Creating Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Button variant="outline" size="xl" className="w-full sm:w-auto hover:bg-gray-50">
                 Watch Demo
               </Button>
             </div>
@@ -242,9 +269,11 @@ export default function Home() {
                     Email support
                   </li>
                 </ul>
-                <Button variant="outline" className="w-full mt-6">
-                  Start Free Trial
-                </Button>
+                <Link href="/generate">
+                  <Button variant="outline" className="w-full mt-6">
+                    Start Free Trial
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
             <Card className="relative border-2 border-blue-500 shadow-xl">
@@ -282,9 +311,11 @@ export default function Home() {
                     Priority support
                   </li>
                 </ul>
-                <Button variant="gradient" className="w-full mt-6">
-                  Start Free Trial
-                </Button>
+                <Link href="/generate">
+                  <Button variant="gradient" className="w-full mt-6">
+                    Start Free Trial
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
             <Card className="relative">
@@ -335,10 +366,12 @@ export default function Home() {
           <p className="text-xl text-blue-100 mb-8">
             Join thousands of content creators who are already saving time and creating better content.
           </p>
-          <Button variant="secondary" size="xl" className="bg-white text-blue-600 hover:bg-gray-100">
-            Start Your Free Trial
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <Link href="/generate">
+            <Button variant="secondary" size="xl" className="bg-white text-blue-600 hover:bg-gray-100">
+              Start Your Free Trial
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </section>
 

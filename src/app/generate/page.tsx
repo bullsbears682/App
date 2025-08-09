@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 import { 
   Sparkles, 
   Zap, 
@@ -45,6 +46,7 @@ export default function GeneratePage() {
   const [prompt, setPrompt] = useState("")
   const [generatedContent, setGeneratedContent] = useState("")
   const [isGenerating, setIsGenerating] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const handleGenerate = async () => {
     if (!contentType || !tone || !prompt) return
@@ -87,6 +89,29 @@ This content demonstrates the power of AI-assisted writing while maintaining hum
 
   const handleCopy = () => {
     navigator.clipboard.writeText(generatedContent)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleDownload = () => {
+    const blob = new Blob([generatedContent], { type: 'text/plain' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `content-${Date.now()}.txt`
+    a.click()
+    window.URL.revokeObjectURL(url)
+  }
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Generated Content',
+        text: generatedContent,
+      })
+    } else {
+      handleCopy()
+    }
   }
 
   return (
@@ -94,12 +119,12 @@ This content demonstrates the power of AI-assisted writing while maintaining hum
       {/* Navigation */}
       <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-purple-600">
               <Sparkles className="h-4 w-4 text-white" />
             </div>
             <span className="text-xl font-bold gradient-text">ContentAI Pro</span>
-          </div>
+          </Link>
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm">
               <Settings className="mr-2 h-4 w-4" />
@@ -179,7 +204,7 @@ This content demonstrates the power of AI-assisted writing while maintaining hum
                 <Button 
                   onClick={handleGenerate} 
                   disabled={!contentType || !tone || !prompt || isGenerating}
-                  className="w-full"
+                  className="w-full hover:scale-105 transition-transform"
                   variant="gradient"
                 >
                   {isGenerating ? (
@@ -217,7 +242,7 @@ This content demonstrates the power of AI-assisted writing while maintaining hum
                       key={template}
                       variant="outline"
                       size="sm"
-                      className="justify-start"
+                      className="justify-start hover:bg-gray-50 transition-colors"
                       onClick={() => setPrompt(template)}
                     >
                       {template}
@@ -238,13 +263,13 @@ This content demonstrates the power of AI-assisted writing while maintaining hum
                     <div className="flex space-x-2">
                       <Button variant="outline" size="sm" onClick={handleCopy}>
                         <Copy className="mr-2 h-4 w-4" />
-                        Copy
+                        {copied ? "Copied!" : "Copy"}
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={handleDownload}>
                         <Download className="mr-2 h-4 w-4" />
                         Download
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={handleShare}>
                         <Share2 className="mr-2 h-4 w-4" />
                         Share
                       </Button>
